@@ -5,6 +5,7 @@ import { fetchUsers, getUserDetails, updateUserDetails } from '../services/userS
 import TaskForm from '../components/TaskForm/TaskForm';
 import TaskList from '../components/TaskList/TaskList';
 import UserList from '../components/UserList/UserList';
+import Modal from '../components/TaskList/Modal'; 
 import { useNavigate } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode';
 
@@ -15,7 +16,10 @@ const Dashboard = () => {
     const [users, setUsers] = useState([]);
     const [selectedUserId, setSelectedUserId] = useState(null);
     const [userDetails, setUserDetails] = useState(null);
+    const [isHelpModalOpen, setHelpModalOpen] = useState(false);
     const navigate = useNavigate();
+
+
 
     useEffect(() => {
         if (!token) {
@@ -24,6 +28,14 @@ const Dashboard = () => {
             getUserDetails(token).then(data => setUserDetails(data));
         }
     }, [token, navigate]);
+
+    const openHelpModal = () => {
+        setHelpModalOpen(true);
+    };
+
+    const closeHelpModal = () => {
+        setHelpModalOpen(false);
+    };
 
     const fetchTasks = useCallback(async () => {
         try {
@@ -125,8 +137,24 @@ const Dashboard = () => {
                       {userDetails && <p style={{ margin: 0, marginLeft: '5px' }}>EXP: {userDetails.exp_points}</p>}
                     <div className="rpgui-icon potion-blue" style={{ marginLeft: '10px', display: 'flex', alignItems: 'center' }}>
                     </div>
+                
                 </div>
-                <button className="rpgui-button golden" onClick={handleLogout}><p>Logout</p></button>
+                <button className="rpgui-button " onClick={openHelpModal} style={{ display: 'flex', justifyContent: 'left' }} ><p>Help</p></button>
+                <button className="rpgui-button golden" onClick={handleLogout}  ><p>Logout</p></button>
+                
+
+                {isHelpModalOpen && (
+                    <Modal onClose={closeHelpModal}>
+                        <div className="rpgui-container framed">
+                        <h3>Task Difficulty Explanation</h3>
+                        <p>Easy task: +50 EXP</p>
+                        <p>Medium task: +75 EXP</p>
+                        <p>Hard task: +100 EXP</p>
+                        </div>
+                    </Modal>
+                )}
+
+
                 <hr className="golden" />
                 {users.length > 0 && (
                     <div>

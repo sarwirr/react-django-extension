@@ -153,4 +153,10 @@ SIMPLE_JWT = {
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
 }
 
+
+CORS_ALLOWED_ORIGINS = [
+    "chrome-extension://biainhjonmfhngaeekjnmmkfaedomebg",
+    "http://127.0.0.1:8000",
+]
+
 CORS_ALLOW_ALL_ORIGINS = True
