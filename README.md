@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-### Set up Virtual Environment
+### :computer: Set up Virtual Environment
 
   Using **env** (preferred)
 
@@ -16,16 +16,10 @@
     ``` 
 
 ## Setting up the Backend
-
-```
-$ mkdir (DIR_NAME)
-$ cd (DIR_NAME)
-``` 
-
 ### Install dependencies
 Run the following command inside your virtual environment:
    ``` 
-- Using **venv**:
+- Using **env**:
     ```Shell
     $ pip install -r requirements.txt # (Python 2)
     $ pip3 install -r requirements.txt # (Python 3)
@@ -37,5 +31,37 @@ You can check whether everything is working by **running both React and Django c
 ```Shell
 $ npm start
 $ python manage.py runserver
-``` 
+```
 
+## Applying tests 
+
+
+
+
+## :computer: Setting up Frontend part
+
+- Install dependencies
+
+```
+pnpm install
+```
+
+- Start Development Server
+
+```
+pnpm dev
+```
+
+- Building the chrome extension for production
+
+```
+pnpm build
+```
+
+## :rocket: Usage
+
+- You can find the chrome extension contents in the `dist` folder
+- Open `chrome://extension` and turn on Developer Mode.
+- Click the `Load unpacked extension` button.
+- Now, select the `dist` folder.
+- Your extension is ready to use.
