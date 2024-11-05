@@ -1,4 +1,11 @@
 # react-django-extension
+## 🎮 Description 
+
+- Developed a Chrome extension called "TaskMaster" that helps users manage their tasks and time in a fun way, inspired by role-playing game (RPG) mechanics.
+
+##  :joystick: Stack 
+- Frontend : React Vite
+- Backend  : Django 
 
 ## Prerequisites
 
