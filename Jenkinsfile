@@ -75,6 +75,17 @@ pipeline {
             }
         }
 
+        stage('Debug Environment') {
+            steps {
+                sh '''
+                    echo "Environment Debugging:"
+                    which ansible-playbook
+                    ansible-playbook --version
+                    echo $PATH
+                '''
+            }
+        }
+        
         stage('Deploy to Kubernetes') {
             steps {
                 echo 'Deploying the application to Kubernetes...'
