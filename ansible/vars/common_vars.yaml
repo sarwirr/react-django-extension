@@ -1,0 +1,3 @@
+react_image: "sarwirr/react-extension:latest"
+django_image: "sarwirr/django-backend:latest"
+kubeconfig: "/path/to/kubeconfig"

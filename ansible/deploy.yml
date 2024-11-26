@@ -1,0 +1,9 @@
+---
+- name: Deploy application to Kubernetes
+  hosts: localhost
+  tasks:
+    - name: Create Kubernetes namespace
+      command: kubectl create namespace my-app-namespace --kubeconfig={{ kubeconfig }} || true
+
+    - name: Apply Kubernetes manifests
+      command: kubectl apply -f k8s/ --kubeconfig={{ kubeconfig }}
