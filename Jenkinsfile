@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'jenkins' }
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('205c8218-5be6-42fb-a01e-69998c04b031') 

@@ -1,9 +1,12 @@
 ---
-- name: Deploy application to Kubernetes
+- name: Deploy React and Django app to Kubernetes
   hosts: localhost
   tasks:
-    - name: Create Kubernetes namespace
-      command: kubectl create namespace my-app-namespace --kubeconfig={{ kubeconfig }} || true
+    - name: Apply Kubernetes namespace
+      command: kubectl apply -f ../k8s/namespace.yaml
 
-    - name: Apply Kubernetes manifests
-      command: kubectl apply -f k8s/ --kubeconfig={{ kubeconfig }}
+    - name: Deploy Backend
+      command: kubectl apply -f ../k8s/backend-deployment.yaml
+
+    - name: Deploy Frontend
+      command: kubectl apply -f ../k8s/frontend-deployment.yaml
