@@ -65,14 +65,16 @@ pipeline {
         stage('Push Docker Images') {
             steps {
                 echo 'Pushing Docker images to DockerHub...'
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'DOCKERHUB_CREDENTIALS') {
-                        docker.image("${REACT_IMAGE}:latest").push()
-                        docker.image("${DJANGO_IMAGE}:latest").push()
-                    }
+                    withCredentials([usernamePassword(credentialsId: '205c8218-5be6-42fb-a01e-69998c04b031', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh '''
+                        echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+                        docker push ${REACT_IMAGE}:latest
+                        docker push ${DJANGO_IMAGE}:latest
+                    '''
                 }
             }
         }
+
 
         stage('Deploy to Kubernetes') {
             steps {
