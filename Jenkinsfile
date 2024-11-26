@@ -20,10 +20,9 @@ pipeline {
             steps {
                 echo 'Setting up Python virtual environment and installing backend dependencies...'
                 sh '''
-                    cd taskmaster_backend
+                     cd backend
                     python3 -m venv env
-                    source env/bin/activate
-                    pip install -r requirements.txt
+                    bash -c "source env/bin/activate && pip install -r requirements.txt"
                 '''
             }
         }
