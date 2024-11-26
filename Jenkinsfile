@@ -8,10 +8,6 @@ pipeline {
         KUBECONFIG = '/path/to/kubeconfig' 
     }
 
-    options {
-        shell('/bin/bash') // Ensure Bash is used globally
-    }
-
     stages {
         stage('Clone Repository') {
             steps {
@@ -24,9 +20,7 @@ pipeline {
             steps {
                 echo 'Setting up Python virtual environment and installing backend dependencies...'
                 sh '''
-                    cd taskmaster_backend
-                    python3 -m venv env
-                    source env/bin/activate && pip install -r requirements.txt
+                    bash -c "cd taskmaster_backend && python3 -m venv env && source env/bin/activate && pip install -r requirements.txt"
                 '''
             }
         }
@@ -35,8 +29,7 @@ pipeline {
             steps {
                 echo 'Running Django backend tests...'
                 sh '''
-                    cd taskmaster_backend
-                    source env/bin/activate && python manage.py test
+                    bash -c "cd taskmaster_backend && source env/bin/activate && python manage.py test"
                 '''
             }
         }
@@ -45,8 +38,7 @@ pipeline {
             steps {
                 echo 'Installing frontend dependencies...'
                 sh '''
-                    cd frontend
-                    pnpm install
+                    bash -c "cd frontend && pnpm install"
                 '''
             }
         }
@@ -55,8 +47,7 @@ pipeline {
             steps {
                 echo 'Building frontend for Chrome extension...'
                 sh '''
-                    cd frontend
-                    pnpm build
+                    bash -c "cd frontend && pnpm build"
                 '''
             }
         }
@@ -87,7 +78,7 @@ pipeline {
             steps {
                 echo 'Deploying the application to Kubernetes...'
                 sh '''
-                    ansible-playbook -i inventory/hosts deploy.yml
+                    bash -c "ansible-playbook -i inventory/hosts deploy.yml"
                 '''
             }
         }
