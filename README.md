@@ -1,4 +1,11 @@
 # react-django-extension
+## 🎮 Description 
+
+- Developed a Chrome extension called "TaskMaster" that helps users manage their tasks and time in a fun way, inspired by role-playing game (RPG) mechanics.
+
+##  :joystick: Stack 
+- Frontend : React Vite
+- Backend  : Django 
 
 ## Prerequisites
 
@@ -25,7 +32,7 @@ Run the following command inside your virtual environment:
     $ pip3 install -r requirements.txt # (Python 3)
    ```
 
-###  Test the Web Application
+### :atom_symbol: Test the Web Application
 You can check whether everything is working by **running both React and Django concurrently** at your local development server:
 
 ```Shell
@@ -34,7 +41,9 @@ $ python manage.py runserver
 ```
 
 ## Applying tests 
+- Below is a separate preview for testing:
 
+<p align="center"> <img src="images/test.png" width="600" alt="Test Image"> </p>
 
 
 
@@ -65,3 +74,8 @@ pnpm build
 - Click the `Load unpacked extension` button.
 - Now, select the `dist` folder.
 - Your extension is ready to use.
+
+## :atom_symbol: Preview of the app
+- Here's a preview of different parts of the application:
+
+<p align="center"> <img src="images/login.png" width="300" alt="Login Page"> <img src="images/register.png" width="300" alt="Register Page"> <img src="images/dashboard.png" width="300" alt="Dashboard View"> <img src="images/help.png" width="300" alt="Help Modal">  <img src="images/admin.png" width="300" alt="Admin View">  <img src="images/deleteModal.png" width="300" alt="Delete Modal">  </p>
