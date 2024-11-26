@@ -78,14 +78,16 @@ pipeline {
         stage('Debug Environment') {
             steps {
                 sh '''
-                    echo "Environment Debugging:"
-                    which ansible-playbook
-                    ansible-playbook --version
-                    echo $PATH
+                    echo "Current PATH: $PATH"
+                    echo "Location of ansible-playbook:"
+                    which ansible-playbook || echo "ansible-playbook not found"
+                    ls -l /usr/bin/ | grep ansible
+                    echo "Ansible-playbook version:"
+                    ansible-playbook --version || echo "Cannot execute ansible-playbook"
                 '''
             }
         }
-        
+
         stage('Deploy to Kubernetes') {
             steps {
                 echo 'Deploying the application to Kubernetes...'
