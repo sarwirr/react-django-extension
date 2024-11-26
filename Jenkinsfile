@@ -78,12 +78,22 @@ pipeline {
         stage('Debug Environment') {
             steps {
                 sh '''
-                    echo "Current PATH: $PATH"
-                    echo "Location of ansible-playbook:"
-                    which ansible-playbook || echo "ansible-playbook not found"
-                    ls -l /usr/bin/ | grep ansible
-                    echo "Ansible-playbook version:"
-                    ansible-playbook --version || echo "Cannot execute ansible-playbook"
+                    echo "Current Work Directory: $(pwd)"
+                    echo "PATH: $PATH"
+                    ls -l /var/jenkins/agent/
+                    ls -l /var/jenkins/agent/workspace/Kubernetes-pipeline/
+                    which ansible-playbook
+                '''
+            }
+        }
+
+
+        stage('Check Ansible') {
+            steps {
+                sh '''
+                    sudo apt-get update
+                    sudo apt-get install -y ansible
+                    which ansible-playbook
                 '''
             }
         }
