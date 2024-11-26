@@ -65,9 +65,9 @@ pipeline {
         stage('Push Docker Images') {
             steps {
                 echo 'Pushing Docker images to DockerHub...'
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-jenkins', usernameVariable: 'sarwirr', passwordVariable: 'DOCKER_PASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-jenkins', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     sh '''
-                        echo $DOCKER_PASS | docker login -u sarwirr --password-stdin
+                        echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
                         docker push ${REACT_IMAGE}:latest
                         docker push ${DJANGO_IMAGE}:latest
                     '''
@@ -75,12 +75,13 @@ pipeline {
             }
         }
 
-    stage('Deploy to Kubernetes') {
-        steps {
-            echo 'Deploying the application to Kubernetes...'
-            sh '''
-                /usr/bin/ansible-playbook -i ansible/inventory/hosts ansible/deploy.yml
-            '''
+        stage('Deploy to Kubernetes') {
+            steps {
+                echo 'Deploying the application to Kubernetes...'
+                sh '''
+                    /usr/bin/ansible-playbook -i ansible/inventory/hosts ansible/deploy.yml
+                '''
+            }
         }
     }
 
@@ -92,5 +93,4 @@ pipeline {
             echo 'Pipeline failed. Check the logs and resolve issues.'
         }
     }
-}
 }
