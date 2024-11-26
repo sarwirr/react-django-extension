@@ -2,7 +2,7 @@ pipeline {
     agent { label 'jenkins' }
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('205c8218-5be6-42fb-a01e-69998c04b031') 
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-jenkins') 
         REACT_IMAGE = 'sarwirr/react-extension'
         DJANGO_IMAGE = 'sarwirr/django-backend'
         KUBECONFIG = '/path/to/kubeconfig' 
@@ -65,7 +65,7 @@ pipeline {
         stage('Push Docker Images') {
             steps {
                 echo 'Pushing Docker images to DockerHub...'
-                    withCredentials([usernamePassword(credentialsId: '205c8218-5be6-42fb-a01e-69998c04b031', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-jenkins', usernameVariable: 'sarwirr', passwordVariable: 'DOCKER_PASS')]) {
                     sh '''
                         echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
                         docker push ${REACT_IMAGE}:latest
