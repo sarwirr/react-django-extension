@@ -75,44 +75,17 @@ pipeline {
             }
         }
 
-        stage('Debug Environment') {
-            steps {
-                sh '''
-                    echo "Current Work Directory: $(pwd)"
-                    echo "PATH: $PATH"
-                    ls -l /var/jenkins/agent/
-                    ls -l /var/jenkins/agent/workspace/Kubernetes-pipeline/
-                '''
-            }
-        }
-
-        stage('Debug Workspace') {
-            steps {
-                sh '''
-                    echo "Listing files in the ansible directory..."
-                    ls -l /var/jenkins/agent/workspace/Kubernetes-pipeline/ansible
-                '''
-            }
-        }
-
-        stage('Deploy to Kubernetes') {
-            steps {
-                echo 'Deploying the application to Kubernetes...'
-                sh '''
-                    echo "Environment Debugging..."
-                    export PATH=$PATH:/usr/bin
-                    echo "Current PATH: $PATH"
-            
-                    echo "Checking ansible-playbook availability..."
-                    which ansible-playbook || { echo "ansible-playbook not found"; exit 1; }
-            
-                    echo "Running ansible-playbook..."
-                    ansible-playbook \
-                        -i /var/jenkins/agent/workspace/Kubernetes-pipeline/ansible/inventory/hosts \
-                        /var/jenkins/agent/workspace/Kubernetes-pipeline/ansible/deploy.yml
-                '''
-            }
-        }
+     stage('Deploy to Kubernetes') {
+    steps {
+        echo 'Deploying the application to Kubernetes...'
+        sh '''
+            kubectl apply -f k8s/namespace.yaml
+            kubectl apply -f k8s/backend-deployment.yaml
+            kubectl apply -f k8s/frontend-deployment.yaml
+            kubectl apply -f k8s/ingress.yaml
+        '''
+    }
+}
     }
 
     post {
