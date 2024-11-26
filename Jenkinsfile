@@ -75,14 +75,12 @@ pipeline {
             }
         }
 
-
-        stage('Deploy to Kubernetes') {
-            steps {
-                echo 'Deploying the application to Kubernetes...'
-                sh '''
-                    bash -c "ansible-playbook -i inventory/hosts deploy.yml"
-                '''
-            }
+    stage('Deploy to Kubernetes') {
+        steps {
+            echo 'Deploying the application to Kubernetes...'
+            sh '''
+                /usr/bin/ansible-playbook -i ansible/inventory/hosts ansible/deploy.yml
+            '''
         }
     }
 
