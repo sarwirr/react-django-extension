@@ -8,6 +8,10 @@ pipeline {
         KUBECONFIG = '/path/to/kubeconfig' 
     }
 
+    options {
+        shell('/bin/bash') // Ensure Bash is used globally
+    }
+
     stages {
         stage('Clone Repository') {
             steps {
@@ -20,9 +24,9 @@ pipeline {
             steps {
                 echo 'Setting up Python virtual environment and installing backend dependencies...'
                 sh '''
-                     cd taskmaster_backend
+                    cd taskmaster_backend
                     python3 -m venv env
-                    bash -c "source env/bin/activate && pip install -r requirements.txt"
+                    source env/bin/activate && pip install -r requirements.txt
                 '''
             }
         }
@@ -32,8 +36,7 @@ pipeline {
                 echo 'Running Django backend tests...'
                 sh '''
                     cd taskmaster_backend
-                    source env/bin/activate
-                    python manage.py test
+                    source env/bin/activate && python manage.py test
                 '''
             }
         }
@@ -63,7 +66,7 @@ pipeline {
                 echo 'Building Docker images for React and Django...'
                 script {
                     docker.build("${REACT_IMAGE}:latest", './frontend')
-                    docker.build("${DJANGO_IMAGE}:latest", './backend')
+                    docker.build("${DJANGO_IMAGE}:latest", './taskmaster_backend')
                 }
             }
         }
@@ -98,5 +101,4 @@ pipeline {
             echo 'Pipeline failed. Check the logs and resolve issues.'
         }
     }
-    
 }
