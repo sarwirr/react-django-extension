@@ -87,14 +87,6 @@ pipeline {
         }
 
 
-        stage('Check Ansible') {
-            steps {
-                sh '''
-                    sudo apt-get install -y ansible
-                    which ansible-playbook
-                '''
-            }
-        }
 
         stage('Deploy to Kubernetes') {
             steps {
