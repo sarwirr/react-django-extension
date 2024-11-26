@@ -79,7 +79,7 @@ pipeline {
             steps {
                 echo 'Deploying the application to Kubernetes...'
                 sh '''
-                    /usr/bin/ansible-playbook -i ansible/inventory/hosts ansible/deploy.yml
+                     /usr/bin/ansible-playbook -i /var/jenkins/agent/workspace/Kubernetes-pipeline/ansible/inventory/hosts /var/jenkins/agent/workspace/Kubernetes-pipeline/ansible/deploy.yml
                 '''
             }
         }
