@@ -82,7 +82,6 @@ pipeline {
                     echo "PATH: $PATH"
                     ls -l /var/jenkins/agent/
                     ls -l /var/jenkins/agent/workspace/Kubernetes-pipeline/
-                    which ansible-playbook
                 '''
             }
         }
@@ -103,6 +102,8 @@ pipeline {
                 echo 'Deploying the application to Kubernetes...'
                 sh '''
                     export PATH=$PATH:/usr/bin
+                    echo "Current PATH: $PATH"
+                    which ansible-playbook
                     ansible-playbook -i /var/jenkins/agent/workspace/Kubernetes-pipeline/ansible/inventory/hosts /var/jenkins/agent/workspace/Kubernetes-pipeline/ansible/deploy.yml
                 '''
             }
