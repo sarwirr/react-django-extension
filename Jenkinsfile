@@ -67,7 +67,7 @@ pipeline {
                 echo 'Pushing Docker images to DockerHub...'
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-jenkins', usernameVariable: 'sarwirr', passwordVariable: 'DOCKER_PASS')]) {
                     sh '''
-                        echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+                        echo $DOCKER_PASS | docker login -u sarwirr --password-stdin
                         docker push ${REACT_IMAGE}:latest
                         docker push ${DJANGO_IMAGE}:latest
                     '''
