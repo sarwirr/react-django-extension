@@ -86,7 +86,14 @@ pipeline {
             }
         }
 
-
+        stage('Debug Workspace') {
+            steps {
+                sh '''
+                    echo "Listing files in the ansible directory..."
+                    ls -l /var/jenkins/agent/workspace/Kubernetes-pipeline/ansible
+                '''
+            }
+        }
 
         stage('Deploy to Kubernetes') {
             steps {
