@@ -76,20 +76,18 @@ pipeline {
             }
         }
 
-//      stage('Deploy to Kubernetes') {
-//     steps {
-//         echo 'Deploying the application to Kubernetes...'
-//         sh '''
-//             kubectl apply -f k8s/namespace.yaml --validate=false
-//             kubectl apply -f k8s/backend-deployment.yaml --validate=false
-//             kubectl apply -f k8s/frontend-deployment.yaml --validate=false
-//             kubectl apply -f k8s/ingress.yaml --validate=false
-//         '''
-//     }
-// }
+        stage('Deploy to Kubernetes') {
+            steps {
+                echo 'Deploying the application to Kubernetes...'
+                sh '''
+                    kubectl apply -f k8s/namespace.yaml --validate=false
+                    kubectl apply -f k8s/backend-deployment.yaml --validate=false
+                    kubectl apply -f k8s/frontend-deployment.yaml --validate=false
+                    kubectl apply -f k8s/ingress.yaml --validate=false
+                '''
+            }
+        }
 
-
-    stages {
         stage('Login to Azure') {
             steps {
                 script {
@@ -103,8 +101,6 @@ pipeline {
             }
         }
         // Additional stages to deploy resources, run tests, etc.
-    }
-    
     }
 
     post {
